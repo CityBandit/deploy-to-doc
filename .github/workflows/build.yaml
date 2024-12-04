@@ -34,7 +34,7 @@ jobs:
       - name: build and push image to registry
         uses: docker/build-push-action@v6
         with:
-          context: ./frontend
+          context: ./frontend/
           file: dev.Dockerfile
           push: true
           tags: ${{secrets.DOCKERHUB_USERNAME}}/${{env.IMAGE}}
