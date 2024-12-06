@@ -42,7 +42,7 @@ jobs:
           password: ${{secrets.DOCKERHUB_PASSWORD}}
 
       - name: build and push image to registry
-        run: |
+        run:
           docker build -t "${{env.USERNAME}}/${{env.IMAGE}}" -f dev.Dockerfile .
 
       # - name: build and push image to registry
