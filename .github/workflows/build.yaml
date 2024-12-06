@@ -1,56 +1,58 @@
-# name: Build and Push Services
-# run-name: build-services
+name: Build and Push Services
+run-name: build-services
 
-# on:
-#   push:
-#     branches: ["main"]
-#   pull_request:
-#     branches: ["main"]
-#   workflow_dispatch:
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+  workflow_dispatch:
 
-# env:
-#   IMAGE: test-front:latest
-#   USERNAME: ${{secrets.DOCKERHUB_USERNAME}}
+env:
+  IMAGE: test-front:latest
+  USERNAME: ${{secrets.DOCKERHUB_USERNAME}}
 
-# jobs:
-#   build-payment:
-#     name: build and push payment image
-#     runs-on: ubuntu-latest
-#     defaults:
-#       run:
-#         shell: bash
-#         working-directory: ./frontend
-#     steps:
-#       - name: checkout the repository
-#         uses: actions/checkout@v4
+jobs:
+  build-payment:
+    name: build and push client image
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./frontend
+    steps:
+      - name: checkout the repository
+        uses: actions/checkout@v4
 
-#       - name: create env file.
-#         env:
-#           CLIENT_ENV: frontend
-#           DOCKERHUB_USERNAME: ${{secrets.DOCKERHUB_USERNAME}}
-#           DOCKERHUB_PASSWORD: ${{secrets.DOCKERHUB_USERNAME}}
-#           envkey_SOME_API_KEY: "123456abcdef"
-#           some_other_variable: foobar
-#         run: |
-#           chmod u+x ./env.sh
-#           ./env.sh
+      - name: create env file.
+        env:
+          CLIENT_ENV: frontend
+          DOCKERHUB_USERNAME: ${{secrets.DOCKERHUB_USERNAME}}
+          DOCKERHUB_PASSWORD: ${{secrets.DOCKERHUB_USERNAME}}
+          envkey_SOME_API_KEY: "123456abcdef"
+          some_other_variable: foobar
+        run: |
+          chmod u+x ./env.sh
+          ./env.sh
 
-#       - name: login to docker registry
-#         uses: docker/login-action@v3
-#         with:
-#           username: ${{secrets.DOCKERHUB_USERNAME}}
-#           password: ${{secrets.DOCKERHUB_PASSWORD}}
+      - name: login to docker registry
+        uses: docker/login-action@v3
+        with:
+          username: ${{secrets.DOCKERHUB_USERNAME}}
+          password: ${{secrets.DOCKERHUB_PASSWORD}}
 
-#       - name: build and push image to registry
-#         run:
-#           docker build -t "${{env.IMAGE}}" -f dev.Dockerfile .
-#       - name: push the image to registry
-#         run: |
+      - name: build and push image to registry
+        run:
+          docker build -t "${{env.IMAGE}}" -f dev.Dockerfile .
+      # - name: push the image to registry
+      #   run: |
+      #     docker tag my-fastapi-app ${{ secrets.DOCKER_HUB_USERNAME }}/my-fastapi-app:latest
+      #     docker push ${{ secrets.DOCKER_HUB_USERNAME }}/my-fastapi-app:latest
 
-#       # - name: build and push image to registry
-#       #   uses: docker/build-push-action@v6
-#       #   with:
-#       #     # context: "{{defaultContext}}:frontend"
-#       #     file: ./frontend/dev.Dockerfile
-#       #     push: true
-#       #     tags: ${{secrets.DOCKERHUB_USERNAME}}/${{env.IMAGE}}
+      # - name: build and push image to registry
+      #   uses: docker/build-push-action@v6
+      #   with:
+      #     # context: "{{defaultContext}}:frontend"
+      #     file: ./frontend/dev.Dockerfile
+      #     push: true
+      #     tags: ${{secrets.DOCKERHUB_USERNAME}}/${{env.IMAGE}}
