@@ -24,7 +24,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: log the current working dir
-        run:
+        run: |
           echo "Current working dir $(pwd)"
       - name: create env file.
         uses: SpicyPizza/create-envfile@v2.0
@@ -34,7 +34,7 @@ jobs:
           DOCKERHUB_PASSWORD: ${{secrets.DOCKERHUB_PASSWORD}}
           envkey_SOME_API_KEY: "123456abcdef"
       - name: "check env file"
-        run:
+        run: |
           echo "Current working dir $(pwd)"
           cat .env
 
