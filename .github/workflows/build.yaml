@@ -44,15 +44,7 @@ jobs:
       - name: build and push image to registry
         run:
           docker build -t "${{env.IMAGE}}" -f dev.Dockerfile .
-      # - name: push the image to registry
-      #   run: |
-      #     docker tag my-fastapi-app ${{ secrets.DOCKER_HUB_USERNAME }}/my-fastapi-app:latest
-      #     docker push ${{ secrets.DOCKER_HUB_USERNAME }}/my-fastapi-app:latest
-
-      # - name: build and push image to registry
-      #   uses: docker/build-push-action@v6
-      #   with:
-      #     # context: "{{defaultContext}}:frontend"
-      #     file: ./frontend/dev.Dockerfile
-      #     push: true
-      #     tags: ${{secrets.DOCKERHUB_USERNAME}}/${{env.IMAGE}}
+      - name: push the image to registry
+        run: |
+          docker tag ${{env.IMAGE}} ${{ secrets.DOCKERHUB_USERNAME }}/${{env.IMAGE}}:latest
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/${{env.IMAGE}}:latest
