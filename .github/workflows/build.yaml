@@ -46,5 +46,5 @@ jobs:
           docker build -t "${{env.IMAGE}}" -f dev.Dockerfile .
       - name: push the image to registry
         run: |
-          docker tag ${{env.IMAGE}} ${{env.USERNAME}}/${{env.IMAGE}}:latest
-          docker push ${{env.USERNAME}}/${{env.IMAGE}}:latest
+          docker tag ${{env.IMAGE}} ${{ secrets.DOCKER_HUB_USERNAME }}/${{env.IMAGE}}
+          docker push ${{ secrets.DOCKER_HUB_USERNAME }}/${{env.IMAGE}}
