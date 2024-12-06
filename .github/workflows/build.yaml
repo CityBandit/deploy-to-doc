@@ -50,28 +50,21 @@ jobs:
         with:
           username: ${{secrets.DOCKERHUB_USERNAME}}
           password: ${{secrets.DOCKERHUB_PASSWORD}}
-      - name: build the docker image
-        run: |
-          ls -a
-          docker build -t test -f dev.Dockerfile .
-
-      # - name: Set up QEMU
-      #   uses: docker/setup-qemu-action@v3
-
-
-      # - name: Set up Docker Buildx
-      #   uses: docker/setup-buildx-action@v3
-
-      # - name: "check env file"
+      # - name: build the docker image
       #   run: |
-      #     echo "Current working dir $(pwd)"
       #     ls -a
-      #     sleep 3
-      #     cat .env
-      # - name: build and push image to registry
-      #   uses: docker/build-push-action@v6
-      #   with:
-      #     context: "{{defaultContext}}:frontend"
-      #     file: dev.Dockerfile
-      #     push: true
-      #     tags: ${{secrets.DOCKERHUB_USERNAME}}/${{env.IMAGE}}
+      #     docker build -t test -f dev.Dockerfile .
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: build and push image to registry
+        uses: docker/build-push-action@v6
+        with:
+          # context: "{{defaultContext}}:frontend"
+          file: ./frontend/dev.Dockerfile
+          push: true
+          tags: ${{secrets.DOCKERHUB_USERNAME}}/${{env.IMAGE}}
