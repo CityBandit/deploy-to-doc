@@ -57,7 +57,13 @@ jobs:
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
-
+        
+      - name: "check env file"
+        run: |
+          echo "Current working dir $(pwd)"
+          ls -a
+          sleep 3
+          cat .env
       - name: build and push image to registry
         uses: docker/build-push-action@v6
         with:
