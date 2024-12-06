@@ -27,19 +27,21 @@ jobs:
         run: |
           echo "Current working dir $(pwd)"
       - name: create env file.
-        uses: SpicyPizza/create-envfile@v2.0
-        with:
-          file_name: .env
-          directory: .
+        env:
+          CLIENT_ENV: frontend
           DOCKERHUB_USERNAME: ${{secrets.DOCKERHUB_USERNAME}}
-          DOCKERHUB_PASSWORD: ${{secrets.DOCKERHUB_PASSWORD}}
+          DOCKERHUB_PASSWORD: ${{secrets.DOCKERHUB_USERNAME}}
           envkey_SOME_API_KEY: "123456abcdef"
           some_other_variable: foobar
+        run: |
+          chmod u+x ./env.sh
+          ./env.sh
+
       - name: "check env file"
         run: |
           echo "Current working dir $(pwd)"
           ls -a
-          sleep 10
+          sleep 3
           cat .env
 
       - name: login to docker registry
