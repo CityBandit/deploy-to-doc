@@ -10,6 +10,7 @@ on:
 
 env:
   IMAGE: test-front:latest
+  USERNAME: ${{secrets.DOCKERHUB_USERNAME}}
 
 jobs:
   build-payment:
@@ -42,8 +43,7 @@ jobs:
 
       - name: build and push image to registry
         run: |
-          docker build -t "${{secrets.DOCKERHUB_USERNAME}}/${{env.IMAGE}}" -f dev.Dockerfile .
-          # docker push "${{secrets.DOCKERHUB_USERNAME}}/${{env.IMAGE}}"
+          docker build -t "${{env.USERNAME}}/${{env.IMAGE}}" -f dev.Dockerfile .
 
       # - name: build and push image to registry
       #   uses: docker/build-push-action@v6
