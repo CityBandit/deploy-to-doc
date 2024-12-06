@@ -43,7 +43,7 @@ jobs:
       - name: build and push image to registry
         run: |
           docker build -t ${{secrets.DOCKERHUB_USERNAME}}/${{env.IMAGE}} -f dev.Dockerfile .
-          docker push ${{secrets.DOCKERHUB_USERNAME}}/${{env.IMAGE}}
+          # docker push "${{secrets.DOCKERHUB_USERNAME}}/${{env.IMAGE}}"
 
       # - name: build and push image to registry
       #   uses: docker/build-push-action@v6
