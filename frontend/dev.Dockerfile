@@ -7,5 +7,6 @@ ENV PYTHONUNBUFFERED=1
 
 RUN pip install --no-cache-dir flask
 COPY . /app
+COPY ./.env /app/
 EXPOSE 5000
 CMD [ "python", "main.py"]
